@@ -6,7 +6,7 @@
   },
 
   "mounts": [
-    "source=${localEnv:HOME}/.aws,target=/home/vscode/.aws,type=bind,consistency=cached,readonly",
+    "source=${localEnv:HOME}/.aws,target=/home/vscode/.aws,type=bind,consistency=cached",
     "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached,readonly",
     "source=${localEnv:HOME}/.config/devcontainer-secrets/.env,target=/home/vscode/.secrets/.env,type=bind,consistency=cached,readonly"
   ],
@@ -16,8 +16,6 @@
     "AWS_PROFILE": "AdministratorAccess-437379002957",
     "AWS_REGION": "us-east-1"
   },
-
-  "postStartCommand": "set -a && source /home/vscode/.secrets/.env && set +a",
 
   "postCreateCommand": "bash .devcontainer/post-create.sh",
 

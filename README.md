@@ -23,7 +23,7 @@ Prereqs:
 
 All steps below should be done in WSL2 on windows
 
-Setup SSH:
+Setup SSH and git:
   ssh-keygen -t ed25519 -C "your@email.com"
     accept the default path
   cat ~/.ssh/id_ed25519.pub
@@ -34,7 +34,14 @@ Setup SSH:
     ssh-add ~/.ssh/id_ed25519
   If on windows, add the above step to your wsl shell profile
     nano ~/.bashrc
-    Copy paste "ssh-add ~/.ssh/id_ed25519" to bottom of file
+    Copy paste to bottom of file
+      if [ -z "$SSH_AUTH_SOCK" ]; then
+          eval "$(ssh-agent -s)" > /dev/null
+      fi
+
+  Setup ~/.gitconfig
+    git config --global user.name "your name"
+    git config --global user.email "your@email.com"
 
 Setup AWS SSO
   Mac:
@@ -71,4 +78,10 @@ Setup AI secrets
     chmod 600 ~/.config/devcontainer-secrets/.env
   
 
+After initial setup you just need to ensure docker desktop is running (for the devcontainer to attach to) and to run 
+  aws sso login 
+to refreseh your credentials
 
+
+aws sso login --profile your-sso-profile-name
+aws sso login --profile AdministratorAccess-437379002957

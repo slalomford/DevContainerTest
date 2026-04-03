@@ -5,6 +5,18 @@ echo "────────────────────────�
 echo " Dev container post-create setup"
 echo "──────────────────────────────────────────"
 
+SECRETS_FILE="/home/vscode/.secrets/.env"
+BASHRC="/home/vscode/.bashrc"
+
+if [ -f "$SECRETS_FILE" ]; then
+  echo "▶ Loading secrets into .bashrc..."
+  grep -qxF ". $SECRETS_FILE" "$BASHRC" || echo ". $SECRETS_FILE" >> "$BASHRC"
+  echo "✓ Secrets will load in every new terminal"
+else
+  echo "⚠ Secrets file not found at $SECRETS_FILE"
+  echo "  Create ~/.config/devcontainer-secrets/.env on your host and rebuild"
+fi
+
 if [ -f "package-lock.json" ]; then
   echo "▶ Installing root npm dependencies..."
   npm ci
